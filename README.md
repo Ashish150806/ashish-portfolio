@@ -1,34 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ashish Portfolio
+
+A premium, interactive personal portfolio website built with Next.js, TypeScript, Tailwind CSS, Framer Motion, and Three.js. This project showcases my work as a software engineer and full-stack developer through a polished, modern experience with animated sections, a 3D skills galaxy, and a refined dark-theme UI.
+
+## Features
+
+- Animated hero section with typed role transitions
+- Interactive 3D skills galaxy using React Three Fiber
+- Smooth motion-driven section transitions with Framer Motion
+- Clean, modern sections for about, projects, experience, and contact
+- Responsive layout optimized for desktop and mobile
+- Dark theme with glassmorphism-inspired visuals
+
+## Tech Stack
+
+- Next.js 16
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- Three.js
+- React Three Fiber
+- shadcn/ui
 
 ## Getting Started
 
-First, run the development server:
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
+3. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Project Structure
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- `app/` — App Router pages and layout
+- `components/sections/` — Portfolio sections such as hero, about, projects, and contact
+- `components/three/` — 3D scene components
+- `components/ui/` — Reusable UI components
+- `lib/data.ts` — Portfolio content and structured data
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deployment
 
-## Learn More
+This project is ready to be deployed on platforms such as Vercel or Netlify.
 
-To learn more about Next.js, take a look at the following resources:
+## Contact
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+For inquiries or collaboration opportunities, feel free to reach out through the contact section of the website or via GitHub and LinkedIn.
