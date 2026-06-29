@@ -8,8 +8,8 @@ function Particles() {
   const pointsRef = useRef<THREE.Points>(null);
 
   const positions = useMemo(() => {
-    const positions = new Float32Array(250 * 3);
-    for (let i = 0; i < 250; i += 1) {
+    const positions = new Float32Array(280 * 3);
+    for (let i = 0; i < 280; i += 1) {
       positions[i * 3] = (Math.random() - 0.5) * 8;
       positions[i * 3 + 1] = (Math.random() - 0.5) * 6;
       positions[i * 3 + 2] = (Math.random() - 0.5) * 8;
@@ -29,10 +29,10 @@ function Particles() {
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
       <pointsMaterial
-        size={0.025}
-        color="#38bdf8"
+        size={0.026}
+        color="#c4b5fd"
         transparent
-        opacity={0.9}
+        opacity={0.85}
         sizeAttenuation
         depthWrite={false}
       />
@@ -43,10 +43,10 @@ function Particles() {
 export function HeroBackground() {
   return (
     <div className="absolute inset-0 -z-10 overflow-hidden">
-      <Canvas camera={{ position: [0, 0, 5], fov: 55 }}>
-        <color attach="background" args={["#020617"]} />
+      <Canvas camera={{ position: [0, 0, 5], fov: 55 }} gl={{ alpha: true }}>
         <ambientLight intensity={0.8} />
-        <pointLight position={[5, 5, 5]} intensity={1.4} color="#06b6d4" />
+        <pointLight position={[5, 5, 5]} intensity={1.4} color="#a78bfa" />
+        <pointLight position={[-5, -3, 2]} intensity={1.1} color="#e879f9" />
         <Particles />
       </Canvas>
     </div>

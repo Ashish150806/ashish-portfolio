@@ -37,7 +37,7 @@ function SkillOrb({ skill, position, onSelect }: { skill: Skill; position: [numb
       <meshStandardMaterial color={skill.color} emissive={skill.color} emissiveIntensity={hovered ? 0.7 : 0.25} />
       {hovered && (
         <Html position={[0, 0.25, 0]} center>
-          <div className="rounded-full border border-cyan-400/50 bg-slate-950/80 px-3 py-1 text-[10px] font-semibold text-cyan-200 shadow-lg shadow-cyan-500/20">
+          <div className="rounded-full border border-violet-400/50 bg-background/85 px-3 py-1 text-[10px] font-semibold text-violet-200 shadow-lg shadow-violet-500/20">
             {skill.name}
           </div>
         </Html>
@@ -63,12 +63,12 @@ export function SkillsGalaxy({ skills }: { skills: Skill[] }) {
   }, [skills]);
 
   return (
-    <div className="relative h-[420px] overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/70">
-      <Canvas camera={{ position: [0, 0, 4.1], fov: 50 }}>
+    <div className="relative h-[420px] overflow-hidden rounded-[2rem] border border-white/10 bg-background/70">
+      <Canvas camera={{ position: [0, 0, 4.1], fov: 50 }} gl={{ alpha: true }}>
         <ambientLight intensity={0.7} />
-        <pointLight position={[4, 4, 4]} intensity={1.5} color="#38bdf8" />
-        <pointLight position={[-4, -2, -3]} intensity={1.2} color="#a855f7" />
-        <fog attach="fog" args={["#020617", 2, 8]} />
+        <pointLight position={[4, 4, 4]} intensity={1.5} color="#c4b5fd" />
+        <pointLight position={[-4, -2, -3]} intensity={1.2} color="#e879f9" />
+        <fog attach="fog" args={["#0c0a14", 2, 8]} />
         <group rotation={[0.2, 0.3, 0]}>
           {skills.map((skill, index) => (
             <SkillOrb key={skill.name} skill={skill} position={positions[index]} onSelect={setSelectedSkill} />
@@ -78,10 +78,10 @@ export function SkillsGalaxy({ skills }: { skills: Skill[] }) {
       </Canvas>
 
       {selectedSkill && (
-        <div className="absolute left-4 top-4 rounded-2xl border border-cyan-400/40 bg-slate-900/85 px-4 py-3 text-sm shadow-lg shadow-cyan-500/10">
-          <p className="text-xs uppercase tracking-[0.2em] text-cyan-300">Selected skill</p>
+        <div className="absolute left-4 top-4 rounded-2xl border border-violet-400/40 bg-background/85 px-4 py-3 text-sm shadow-lg shadow-violet-500/10">
+          <p className="text-xs uppercase tracking-[0.2em] text-violet-300">Selected skill</p>
           <p className="mt-1 font-semibold text-white">{selectedSkill.name}</p>
-          <p className="text-slate-300">Proficiency: {selectedSkill.level}</p>
+          <p className="text-muted-foreground">Proficiency: {selectedSkill.level}</p>
         </div>
       )}
     </div>
