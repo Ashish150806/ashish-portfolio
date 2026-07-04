@@ -77,10 +77,10 @@ export function AboutSection() {
             className="overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-violet-500/10 via-background/80 to-background/95 p-4"
           >
             <Image
-              src="/ashish-portfolio.jpg"
+              src="/ashish-design.jpeg"
               alt="Ashish"
-              width={1266}
-              height={1537}
+              width={1085}
+              height={1450}
               className="aspect-[4/5] w-full rounded-[1.5rem] object-cover object-top"
             />
           </motion.div>
