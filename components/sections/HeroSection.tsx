@@ -1,18 +1,28 @@
 'use client';
 
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ArrowRight, MapPin, Send, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SocialIcon } from "@/components/icons";
-import { HeroBackground } from "@/components/three/HeroBackground";
+import { useIdleMount } from "@/lib/lazy";
 import { heroRoles, profile, socialLinks } from "@/lib/data";
+
+// The Three.js particle field is a decorative, above-the-fold background. Load
+// it as its own client-only chunk so ~874 KB of Three.js/R3F stays out of the
+// initial bundle, then mount it once the browser is idle (see `showBackground`)
+// so it never blocks FCP/LCP or adds to Total Blocking Time.
+const HeroBackground = dynamic(
+  () => import("@/components/three/HeroBackground").then((m) => m.HeroBackground),
+  { ssr: false }
+);
 
 export function HeroSection() {
   const [typedRole, setTypedRole] = useState("");
   const [roleIndex, setRoleIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
+  const showBackground = useIdleMount();
 
   useEffect(() => {
     const currentRole = heroRoles[roleIndex];
@@ -40,14 +50,9 @@ export function HeroSection() {
 
   return (
     <section className="relative isolate overflow-hidden px-6 pb-16 pt-28 sm:px-8 sm:pt-32 lg:px-12 lg:pb-24 lg:pt-40">
-      <HeroBackground />
+      {showBackground && <HeroBackground />}
       <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.25fr_0.75fr]">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-3xl"
-        >
+        <div className="enter-up max-w-3xl">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-violet-500/10 px-3 py-1 text-sm text-violet-200">
             <Sparkles className="h-4 w-4" />
             {profile.tagline}
@@ -104,14 +109,9 @@ export function HeroSection() {
               </Link>
             ))}
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.15 }}
-          className="rounded-[2rem] border border-violet-400/15 bg-gradient-to-br from-violet-500/10 via-background/80 to-background/95 p-6 shadow-2xl shadow-violet-950/40 backdrop-blur-xl"
-        >
+        <div className="enter-right rounded-[2rem] border border-violet-400/15 bg-gradient-to-br from-violet-500/10 via-background/80 to-background/95 p-6 shadow-2xl shadow-violet-950/40 backdrop-blur-xl">
           <p className="text-sm uppercase tracking-[0.3em] text-violet-300">Currently</p>
           <p className="mt-3 flex items-center gap-2 text-2xl font-semibold text-white">
             <span className="relative flex h-2.5 w-2.5">
@@ -133,7 +133,7 @@ export function HeroSection() {
               {profile.location} • Remote-ready
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

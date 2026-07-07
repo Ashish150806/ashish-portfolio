@@ -1,3 +1,6 @@
+// Canonical production URL — used for metadata, Open Graph, robots & sitemap.
+export const siteUrl = "https://ashish-portfolio-delta-khaki.vercel.app";
+
 export const profile = {
   name: "Ashish",
   shortName: "Ashish",

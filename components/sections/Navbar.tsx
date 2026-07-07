@@ -39,11 +39,8 @@ export function Navbar() {
   }, []);
 
   return (
-    <motion.header
-      initial={{ y: -24, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+    <header
+      className={`enter-down fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
         scrolled
           ? "border-b border-white/10 bg-background/70 backdrop-blur-xl"
           : "border-b border-transparent bg-transparent"
@@ -135,6 +132,6 @@ export function Navbar() {
           </div>
         </motion.div>
       )}
-    </motion.header>
+    </header>
   );
 }

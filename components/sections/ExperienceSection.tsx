@@ -93,6 +93,7 @@ export function ExperienceSection() {
                     alt={`${item.organization} project screenshot`}
                     width={1200}
                     height={750}
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     className="aspect-[16/10] w-full object-cover"
                   />
                 </div>

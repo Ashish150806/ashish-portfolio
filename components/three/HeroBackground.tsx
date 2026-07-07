@@ -1,21 +1,24 @@
 'use client';
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 import * as THREE from "three";
+
+// Generated once at module load (client-only chunk) rather than during render,
+// so the random particle field stays stable and render remains pure.
+const PARTICLE_POSITIONS = (() => {
+  const positions = new Float32Array(280 * 3);
+  for (let i = 0; i < 280; i += 1) {
+    positions[i * 3] = (Math.random() - 0.5) * 8;
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 6;
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 8;
+  }
+  return positions;
+})();
 
 function Particles() {
   const pointsRef = useRef<THREE.Points>(null);
-
-  const positions = useMemo(() => {
-    const positions = new Float32Array(280 * 3);
-    for (let i = 0; i < 280; i += 1) {
-      positions[i * 3] = (Math.random() - 0.5) * 8;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 6;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 8;
-    }
-    return positions;
-  }, []);
+  const positions = PARTICLE_POSITIONS;
 
   useFrame((state) => {
     if (!pointsRef.current) return;
@@ -42,7 +45,7 @@ function Particles() {
 
 export function HeroBackground() {
   return (
-    <div className="absolute inset-0 -z-10 overflow-hidden">
+    <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
       <Canvas camera={{ position: [0, 0, 5], fov: 55 }} gl={{ alpha: true }}>
         <ambientLight intensity={0.8} />
         <pointLight position={[5, 5, 5]} intensity={1.4} color="#a78bfa" />

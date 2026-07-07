@@ -78,9 +78,11 @@ export function AboutSection() {
           >
             <Image
               src="/ashish-design.jpeg"
-              alt="Ashish"
+              alt="Portrait of Ashish, Software Engineering student at DTU"
               width={1085}
               height={1450}
+              quality={70}
+              sizes="(max-width: 1024px) 100vw, 40vw"
               className="aspect-[4/5] w-full rounded-[1.5rem] object-cover object-top"
             />
           </motion.div>

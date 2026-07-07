@@ -1,6 +1,4 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -83,6 +81,32 @@ html {
   scroll-behavior: smooth;
   /* Offset anchor targets so the sticky navbar doesn't cover headings */
   scroll-padding-top: 5.5rem;
+}
+
+/*
+  Above-the-fold entrance animations run in pure CSS so the hero + navbar paint
+  immediately at first frame instead of being held at opacity:0 until the JS
+  bundle hydrates. This keeps FCP/LCP off the JavaScript critical path while
+  reproducing the original framer-motion fade+slide exactly.
+*/
+@keyframes enter-down {
+  from { opacity: 0; transform: translateY(-24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes enter-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes enter-right {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.enter-down { animation: enter-down 0.5s cubic-bezier(0, 0, 0.58, 1) both; }
+.enter-up { animation: enter-up 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) both; }
+.enter-right { animation: enter-right 0.7s cubic-bezier(0.25, 0.1, 0.25, 1) 0.15s both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .enter-down, .enter-up, .enter-right { animation: none; }
 }
 
 body {

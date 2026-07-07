@@ -1,16 +1,30 @@
 'use client';
 
+import { useRef } from "react";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
+import { useInViewOnce } from "@/lib/lazy";
 import { skillGroups, skills } from "@/lib/data";
+
+// Shared skeleton — identical whether we're waiting to scroll into view or
+// waiting for the dynamic chunk to load, so the swap is seamless and the
+// 420px box reserves space (no layout shift).
+const GalaxySkeleton = () => (
+  <div className="h-[420px] animate-pulse rounded-[2rem] border border-white/10 bg-background/80" />
+);
 
 const SkillsGalaxy = dynamic(() => import("@/components/three/SkillsGalaxy").then((mod) => mod.SkillsGalaxy), {
   ssr: false,
-  loading: () => <div className="h-[420px] animate-pulse rounded-[2rem] border border-white/10 bg-background/80" />,
+  loading: () => <GalaxySkeleton />,
 });
 
 export function SkillsGalaxySection() {
+  // Skills is below the fold — defer downloading/executing the Three.js chunk
+  // until the section is about to enter the viewport.
+  const galaxyRef = useRef<HTMLDivElement>(null);
+  const showGalaxy = useInViewOnce(galaxyRef);
+
   return (
     <section id="skills" className="px-6 py-20 sm:px-8 lg:px-12">
       <div className="mx-auto max-w-7xl rounded-[2rem] border border-white/10 bg-background/60 p-8 shadow-[0_0_70px_rgba(217,70,239,0.08)] backdrop-blur-xl lg:p-12">
@@ -37,7 +51,9 @@ export function SkillsGalaxySection() {
         </motion.div>
 
         <div className="mt-10 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-          <SkillsGalaxy skills={skills} />
+          <div ref={galaxyRef}>
+            {showGalaxy ? <SkillsGalaxy skills={skills} /> : <GalaxySkeleton />}
+          </div>
           <div className="grid gap-4 sm:grid-cols-2">
             {skillGroups.map((group) => {
               const items = skills.filter((s) => s.group === group.key);
